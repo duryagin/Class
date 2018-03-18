@@ -16,25 +16,25 @@ class PricelistTest {
 	@Test
 	public void add() {
 		assertEquals(true,
-				priceList.addProduct(1, new Product(1, "чс", 70.00)));
+				priceList.addProduct(new Product(1, "чс", new Price(70, 0))));
 		assertEquals("чс", priceList.name(1));
 		
 		assertEquals(true,
-				priceList.addProduct(5, new Product(5, "стул", 19.89)));
+				priceList.addProduct(new Product(5, "стул", new Price(10, 10))));
 		assertEquals("стул", priceList.name(5));
 		
 		assertEquals(false,
-				priceList.addProduct(5, new Product(5, "стул", 19.89)));
+				priceList.addProduct(new Product(5, "стул", new Price(10, 10))));
 	}
 	
 	@Test
 	public void changePrice() {
-		priceList.addProduct(100, new Product(100, "стопка", 17.03));
-		priceList.changePrice(100, 33.33);
-		assertEquals(33.33, priceList.price(100), 1e-3);
+		priceList.addProduct(new Product(100, "стопка", new Price(17, 03)));
+		priceList.changePrice(100, new Price(33, 33));
+		assertEquals(new Price(33, 33), priceList.price(100));
 		
 		try {
-			priceList.changePrice(123123123, 1231231.23);
+			priceList.changePrice(123123123, new Price(1231231, 23));
 			fail();
 		}
 		catch (NoSuchElementException e) {
@@ -44,7 +44,7 @@ class PricelistTest {
 	
 	@Test
 	public void rename() {
-		priceList.addProduct(23, new Product(23, "укроп", 00.00));
+		priceList.addProduct(new Product(23, "укроп", new Price(0, 6)));
 		priceList.rename(23, "оп");
 		assertEquals("оп", priceList.name(23));
 		
@@ -59,7 +59,7 @@ class PricelistTest {
 	
 	@Test
 	public void remove() {
-		priceList.addProduct(255, new Product(255, "ny", 22.00));
+		priceList.addProduct(new Product(255, "ny", new Price(20, 4)));
 		assertEquals("ny", priceList.name(255));
 		
 		priceList.removeProduct(255);
@@ -73,10 +73,10 @@ class PricelistTest {
 	
 	@Test
 	public void sum() {
-		priceList.addProduct(255, new Product(255, "ny", 22.00));
+		priceList.addProduct(new Product(255, "ny", new Price(22, 0)));
 		assertEquals(220.00, priceList.sum(255, 10), 1e-3);
 		
-		priceList.addProduct(23, new Product(23, "укроп", 00.00));
+		priceList.addProduct(new Product(23, "укроп", new Price(0, 0)));
 		assertEquals(0.0, priceList.sum(23, 42), 1e-3);
 		
 		try {
@@ -90,8 +90,8 @@ class PricelistTest {
 	
 	@Test
 	public void price() {
-		priceList.addProduct(65, new Product(65, "глицин", 25.99));
-		assertEquals(25.99, priceList.price(65), 1e-3);
+		priceList.addProduct(new Product(65, "глицин", new Price(25, 99)));
+		assertEquals(new Price(25, 99), priceList.price(65));
 		
 		try {
 			priceList.price(1147);
@@ -104,7 +104,7 @@ class PricelistTest {
 	
 	@Test
 	public void name() {
-		priceList.addProduct(66, new Product(66, "бо€рышник", 11.09));
+		priceList.addProduct(new Product(66, "бо€рышник", new Price(0, 0)));
 		assertEquals("бо€рышник", priceList.name(66));
 		
 		try {

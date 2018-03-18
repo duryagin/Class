@@ -3,9 +3,9 @@ public class Product {
 
 	private final long code;
 	private final String name;
-	private final double price;
+	private final Price price;
 	
-	public Product(long code, String name, double price) {
+	public Product(long code, String name, Price price) {
 		this.code = code;
 		this.name = name;
 		this.price = price;
@@ -19,8 +19,7 @@ public class Product {
 		return this.name;
 	}
 	
-	public double getPrice() {
+	public Price getPrice() {
 		return this.price;
 	}
-	
 }

@@ -9,13 +9,13 @@ public class Pricelist {
 	private Map<Long, Product> priceList = new HashMap<>();
 	
 	
-	public boolean addProduct(long code, Product product) {
-		if (priceList.containsKey(code)) return false;
-		priceList.put(code, product);
+	public boolean addProduct(Product product) {
+		if (priceList.containsKey(product.getCode())) return false;
+		priceList.put(product.getCode(), product);
 		return true;
 	}
 	
-	public void changePrice(long code, double newPrice) {
+	public void changePrice(long code, Price newPrice) {
 		if (!priceList.containsKey(code))
 			throw new NoSuchElementException();
 		Product product = priceList.get(code);
@@ -40,11 +40,12 @@ public class Pricelist {
 			throw new NoSuchElementException();
 		double sum = 0.0;
 		Product product = priceList.get(code);
-		sum = quantity * product.getPrice();
+		sum = quantity *
+				(product.getPrice().getRub() + product.getPrice().getCop() / 100);
 		return sum;
 	}
 	
-	 public double price(long code) {
+	 public Price price(long code) {
 		 if (!priceList.containsKey(code))
 				throw new NoSuchElementException();
 	        return (priceList.get(code)).getPrice();
