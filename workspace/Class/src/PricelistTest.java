@@ -79,6 +79,9 @@ class PricelistTest {
 		priceList.addProduct(new Product(23, "укроп", new Price(0, 0)));
 		assertEquals(0.0, priceList.sum(23, 42), 1e-3);
 		
+		priceList.addProduct(new Product(42, "egg", new Price(5, 50)));
+		assertEquals(16.50, priceList.sum(42, 3), 1e-3);
+		
 		try {
 			priceList.sum(1803, 2018);
 			fail();
